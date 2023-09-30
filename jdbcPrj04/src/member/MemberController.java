@@ -139,6 +139,40 @@ public class MemberController {
 	}
 	
 	private void quit() {
+		// 유저 입력받기
+		System.out.println("회원 탈퇴를 선택하셨습니다.");
+		System.out.println("개인정보 확인을 위해 아이디와 비밀번호를 입력해주세요.");
+		System.out.print("아이디 : ");
+		String userId = sc.nextLine();
+		System.out.print("비밀번호 : ");
+		String userPwd = sc.nextLine();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			// 디비 연결
+			conn = JDBCTemplate.getConnection();			
+			// 쿼리문 실행 및 결과 받기
+			String quitSql = "DELETE FROM MEMBER WHERE ID = ? AND PWD = ?";
+			pstmt = conn.prepareStatement(quitSql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				System.out.println("탈퇴 되었습니다.");
+			} else {
+				throw new Exception();
+			}
+		} catch(Exception e) {
+			System.out.println("문제가 발생했습니다. 나중에 다시 시도해주세요.");
+			e.printStackTrace();
+		} finally {
+			// 자원 반납
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(conn);
+		}
 		
 	}
 	
