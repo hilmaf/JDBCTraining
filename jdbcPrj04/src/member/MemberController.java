@@ -149,7 +149,7 @@ public class MemberController {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		int result = 0;
 		try {
 			// 디비 연결
 			conn = JDBCTemplate.getConnection();			
@@ -158,8 +158,8 @@ public class MemberController {
 			pstmt = conn.prepareStatement(quitSql);
 			pstmt.setString(1, userId);
 			pstmt.setString(2, userPwd);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			result = pstmt.executeUpdate();
+			if(result == 1) {
 				System.out.println("탈퇴 되었습니다.");
 			} else {
 				throw new Exception();
@@ -169,7 +169,6 @@ public class MemberController {
 			e.printStackTrace();
 		} finally {
 			// 자원 반납
-			JDBCTemplate.close(rs);
 			JDBCTemplate.close(pstmt);
 			JDBCTemplate.close(conn);
 		}
