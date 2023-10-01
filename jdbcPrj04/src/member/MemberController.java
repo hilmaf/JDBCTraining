@@ -36,12 +36,9 @@ public class MemberController {
 	}
 	
 	private void join() {
-		// 유저 입력받기 및 중복확인
-		System.out.print("아이디 : ");
-		String userId = sc.nextLine();
-		System.out.print("비밀번호 : ");
-		String userPwd = sc.nextLine();
-		
+		Member member = new Member();
+		String userId = member.scanId();
+		String userPwd = member.scanPwd();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
