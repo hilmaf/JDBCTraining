@@ -9,7 +9,7 @@ import util.JDBCTemplate;
 
 public class MemberController {
 	
-	Scanner sc;
+	private Scanner sc;
 	
 	public MemberController() {
 		sc = new Scanner(System.in);
@@ -36,7 +36,7 @@ public class MemberController {
 	}
 	
 	private void join() {
-		// 유저 입력받기
+		// 유저 입력받기 및 중복확인
 		System.out.print("아이디 : ");
 		String userId = sc.nextLine();
 		System.out.print("비밀번호 : ");
@@ -141,7 +141,7 @@ public class MemberController {
 	private void quit() {
 		// 유저 입력받기
 		System.out.println("회원 탈퇴를 선택하셨습니다.");
-		System.out.println("개인정보 확인을 위해 아이디와 비밀번호를 입력해주세요.");
+		System.out.println("개인정보 확인을 위해 재로그인이 필요합니다.");
 		System.out.print("아이디 : ");
 		String userId = sc.nextLine();
 		System.out.print("비밀번호 : ");
