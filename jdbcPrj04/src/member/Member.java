@@ -95,7 +95,6 @@ public class Member {
 			for(int i=0; i<specialChar.length; i++) {
 				if(userPwd.contains(specialChar[i])) {
 					isOk = true;
-					break;
 				} else {
 					isOk = false;
 				}			
