@@ -39,6 +39,8 @@ public class MemberController {
 		Member member = new Member();
 		String userId = member.scanId();
 		String userPwd = member.scanPwd();
+		
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -157,6 +159,7 @@ public class MemberController {
 			pstmt.setString(2, userPwd);
 			result = pstmt.executeUpdate();
 			if(result == 1) {
+				JDBCTemplate.commit(conn);
 				System.out.println("탈퇴 되었습니다.");
 			} else {
 				throw new Exception();
