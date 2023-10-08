@@ -96,4 +96,35 @@ public class MemberController {
 		}
 	}
 	
+	public void quit() {
+		// 데이터 준비
+		System.out.println("회원 탈퇴를 위해서는 회원정보 확인이 필요합니다.");
+		System.out.print("아이디 : ");
+		String id = sc.nextLine();
+		System.out.print("비밀번호 : ");
+		String pwd = sc.nextLine();
+		
+		// 데이터 뭉치기
+		MemberVo vo = new MemberVo();
+		vo.setId(id);
+		vo.setPwd(pwd);
+		
+		try {
+			// 서비스 호출
+			int result = memberService.quit(vo);
+			
+			// 결과 처리
+			if(result==1) {
+				System.out.println("회원 탈퇴 완료");
+			} else {
+				System.out.println("회원 정보를 찾을 수 없습니다. 다시 시도해주세요.");
+			}			
+		} catch(Exception e) {
+			System.out.println("탈퇴 도중 문제가 발생했습니다.");
+			e.printStackTrace();
+		}
+	}
+	
+	public void 
+	
 }

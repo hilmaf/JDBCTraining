@@ -65,4 +65,20 @@ public class MemberService {
 		return voList;
 	}
 	
+	public int quit(MemberVo vo) throws Exception {
+		// connection 
+		Connection conn = JDBCTemplate.getConnection();
+		// dao 호출
+		int result = dao.quit(conn, vo);
+		// tx 처리
+		if(result==1) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		// close
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }

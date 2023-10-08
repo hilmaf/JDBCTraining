@@ -80,4 +80,20 @@ public class MemberDao {
 		return voList;
 	}
 	
+	public int quit(Connection conn, MemberVo vo) throws Exception {
+		// SQL
+		String quitSql = "DELETE FROM MEMBER WHERE ID=? AND PWD=?";
+		PreparedStatement pstmt = conn.prepareStatement(quitSql);
+		pstmt.setString(1, vo.getId());
+		pstmt.setString(2, vo.getPwd());
+		int result = pstmt.executeUpdate();
+		
+		// result
+		
+		// close
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	}
+	
 }

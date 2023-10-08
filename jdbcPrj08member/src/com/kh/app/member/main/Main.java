@@ -12,6 +12,8 @@ public class Main {
 		memberController.join();
 		memberController.login();
 		memberController.printMemberList();
+		memberController.quit();
+		memberController.editPwd();
 		
 	}
 
