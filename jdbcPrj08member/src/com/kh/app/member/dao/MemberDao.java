@@ -96,4 +96,22 @@ public class MemberDao {
 		return result;
 	}
 	
+	public int editPwd(Connection conn, MemberVo vo, String newPwd) throws Exception {
+		// SQL
+		String editSql = "UPDATE MEMBER SET PWD = ? WHERE ID=? AND PWD=?";
+		PreparedStatement pstmt = conn.prepareStatement(editSql);
+		pstmt.setString(1, newPwd);
+		pstmt.setString(2, vo.getId());
+		pstmt.setString(3, vo.getId());
+		int result = pstmt.executeUpdate();
+		
+		// result
+		if(result==1) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		return result;
+	}
 }

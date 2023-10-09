@@ -81,4 +81,17 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public int editPwd(MemberVo vo, String newPwd) throws Exception {
+		// connection
+		Connection conn = JDBCTemplate.getConnection();
+		// dao 호출
+		int result = dao.editPwd(conn, vo, newPwd);
+		// tx 처리
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }

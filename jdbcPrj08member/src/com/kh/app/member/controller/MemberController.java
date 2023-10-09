@@ -125,6 +125,33 @@ public class MemberController {
 		}
 	}
 	
-	public void 
+	public void editPwd() {
+		// 데이터 준비
+		System.out.println("비밀번호 변경을 위해 회원정보 확인이 필요합니다.");
+		System.out.print("아이디 : ");
+		String id = sc.nextLine();
+		System.out.print("비밀번호 : ");
+		String pwd = sc.nextLine();
+		System.out.print("새 비밀번호 : ");
+		String newPwd = sc.nextLine();
+		
+		try {
+			// 데이터 뭉치기
+			MemberVo vo = new MemberVo();
+			
+			// 서비스 호출
+			int result = memberService.editPwd(vo, newPwd);			
+			
+			if(result == 1) {
+				System.out.println("비밀번호가 변경되었습니다.");
+			} else {
+				System.out.println("회원정보를 다시 확인해주십시오.");
+			}
+		} catch(Exception e) {
+			System.out.println("비밀번호 변경 도중 문제가 발생했습니다.");
+			e.printStackTrace();
+		}
+		
+	}
 	
 }

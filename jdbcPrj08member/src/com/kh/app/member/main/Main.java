@@ -14,7 +14,6 @@ public class Main {
 		memberController.printMemberList();
 		memberController.quit();
 		memberController.editPwd();
-		
 	}
 
 }
