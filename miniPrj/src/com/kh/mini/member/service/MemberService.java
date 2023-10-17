@@ -44,4 +44,23 @@ public class MemberService {
 		
 		return dbVo;
 	}
+
+	public int quit(String no) throws Exception {
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		// dao
+		int result = dao.quit(conn, no);
+		
+		// tx
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 }

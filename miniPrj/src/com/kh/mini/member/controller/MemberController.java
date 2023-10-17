@@ -21,12 +21,16 @@ public class MemberController {
 		System.out.println("=== MEMBER ===");
 		System.out.println("1. 회원가입");
 		System.out.println("2. 로그인");
+		System.out.println("3. 로그아웃");
+		System.out.println("4. 회원탈퇴");
 		
 		String str = Main.SC.nextLine();
 		
 		switch(str) {
 		case "1": join(); break;
 		case "2": login(); break;
+		case "3": logout(); break;
+		case "4": quit(); break;
 		default: System.out.println("잘못 입력하셨습니다.");
 		}
 	}
@@ -104,18 +108,58 @@ public class MemberController {
 			MemberVo dbVo = memberService.login(vo);
 			
 			// 결과 처리
-			if(dbVo!=null) {
-				System.out.println("로그인 성공");
-			} else {
+			if(dbVo==null) {
 				throw new Exception();
 			}
+			
+			Main.loginMember = dbVo;
+			System.out.println("로그인 성공");
 		} catch(Exception e) {
 			System.out.println("로그인 실패");
 			e.printStackTrace();
 		}
 	}
 	
-	// 회원 탈퇴
+	// 로그아웃
+	public void logout() {
+		System.out.println("--- 로그아웃 ---");
+		Main.loginMember = null;
+		System.out.println("로그아웃 되었습니다.");
+	}
+	
+	/**
+	 * 회원 탈퇴
+	 * UPDATE MEMBER
+	 * SET
+	 * 	DEL_YN = 'Y'
+	 * 	, MODIFY_DATE = SYSDATE
+	 * WHERE NO = ?
+	 * 
+	 * 
+	 */
+	public void quit() {
+		try {
+			System.out.println("--- 회원 탈퇴 ---");
+			// 검사
+			if(Main.loginMember == null) {
+				throw new Exception("로그인 후에 회원 탈퇴가 가능합니다.");
+			}
+			// 데이터 준비
+			String no = Main.loginMember.getNo();
+			
+			// 서비스 호출
+			int result = memberService.quit(no);
+			
+			// 결과 처리
+			if(result != 1) {
+				throw new Exception();
+			}
+			System.out.println("탈퇴 성공");
+		} catch(Exception e) {
+			System.out.println("회원 탈퇴 실패");
+			e.printStackTrace();
+		}
+	}
 	
 	// 마이페이지 (현재 로그인한 본인 정보 조회)
 	

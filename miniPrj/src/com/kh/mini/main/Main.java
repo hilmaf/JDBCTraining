@@ -4,10 +4,12 @@ import java.util.Scanner;
 
 import com.kh.mini.board.controller.BoardController;
 import com.kh.mini.member.controller.MemberController;
+import com.kh.mini.member.vo.MemberVo;
 
 public class Main {
 
 	// field
+	public static MemberVo loginMember;
 	public static final Scanner SC = new Scanner(System.in);
 	
 	public static void main(String[] args) {
@@ -26,7 +28,7 @@ public class Main {
 			String num =  Main.SC.nextLine();
 			switch(num) {
 			case "1": memberController.selectMenu(); break;
-//			case "2": boardController.selectMenu(); break;
+			case "2": boardController.selectMenu(); break;
 			case "9": return;
 			default: System.out.println("잘못 입력했습니다.");
 			}
